@@ -1,0 +1,91 @@
+
+# NETWORK AND DEVICE CONFIGURATION
+
+1. Basic settings on all devices
+    Hostname
+    Banner motd
+    No ip domain lookup
+    Console, enable password
+    Local username and password
+    SSHv2 on routers and L3 switches
+
+2. VLAN assignment
+    Access switch ports in access mode for end-hosts
+    Trunk links between access and distribution switches
+    Unused ports shutdown in vlan 99
+    Distribution ML-SWITCH with SVI for inter-VLAN routing
+    ML-SWITCHx - CORE-Rx routed ports
+    Routed uplinks between core-routers and multilayer switches
+
+3. IP addressing
+    Static assignments - Server room:
+     172.16.3.129 for DG
+     172.16.3.130 for DHCP-server
+     172.16.3.131 for DNS-server
+     172.16.3.132 for Servers-PC
+     Static IP assignments on distribution and core switch routed ports
+
+4. OSPF area 0: L3-switches, core routers, FW1 
+
+5. DHCP configuration:
+    Centralized DHCP server (172.16.3.130):
+     Separate pools for each department
+     120 addresses to lease per department
+     First 5 addresses reserved for static assignments
+     Gateway set as the first available IP in the network range
+
+6. DNS server configuration
+    Internal DNS-server (172.16.3.131) for hostname resolutions
+
+7. Inter-VLAN routing on L3 switches using SVIs + dhcp helper service
+    HSRP for redundancy and load balancing between ML-SWITCH1 and ML-SWITCH2
+    HSRP with preemption
+    ML-SWITCH1 = active router for vlan 10,20,30 (standby for other vlans)
+    ML-SWITCH2 = active router for vlan 40,50,60 (standby for other vlans)
+    Virtual IP = first IP in the network range
+    Second available IP = vlan interface ML-SWITCH1
+    Third available IP = vlan interface ML-SWITCH2
+    ip helper address on each vlan interface
+
+8. Wireless network access
+    Autonomous AP using WPA2-PSK as authentication method
+
+9. FW configuration
+    Security level 100 for internal interfaces
+    Security level 70 for DMZ
+    Security level 0 for interfaces toward ISP
+    Static default route to ISP1 (def AD=1)
+    Floating static default route to ISP2 (AD=5)
+    Default route redistribution using OSPF
+
+10. NAT on firewall FW1
+     Inside local: 172.16.0.0 255.255.0.0
+     Inside global: FW1 public IP (dynamic overload)
+
+11. DMZ zone
+     Servers configured with public IP addresses
+     
+12. Remote branch office
+     Etherchannel between access-switch and CORE-SW3 for redundancy and load balancing
+     CORE-SW3 with SVI for inter-vlan routing
+     CORE-SW3 acting as local DHCP server 
+      First 50 IP addresses reserved for static assignments
+      First IP address for default gateway (VLAN interface on CORE-SW3)
+      Pool for marketing and pool for Voip 
+      Option 150 for VoIP
+     FW2 acting performing NAT
+      Inside local: 172.16.4.0 255.255.254.0
+      Inside global: FW2 public IP (dynamic overload)  
+     FW2 configured with a default static route toward ISP3
+     OSPF area 1 for remote branch routing
+
+13. Internet networks
+     ISP with static routes to public company network
+     OSPF area 10
+     ISP redistribute static routes
+
+14. IPsec Site-to-site VPN between central and remote site
+     hash = sha
+     authentication = PSK
+     encryption = 3des
+     tunnel endpoints = FW1 and FW2 public IPs

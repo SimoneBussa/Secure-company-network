@@ -1,0 +1,48 @@
+
+
+## ADDRESSING PLAN
+
+Company private network: 172.16.0.0/16
+Requirements: 120 devices in each department, 10 servers in the server room
+
+# CENTRAL SITE-HEADQUARTERS
+
+FIRST FLOOR:
+Sales = 172.16.1.0 /25, VLAN 10
+HR = 172.16.1.128/25, VLAN 20
+
+SECOND FLOOR:
+Finance = 172.16.2.0/25, VLAN 30
+Admin = 172.16.2.128/25, VLAN 40
+
+THIRD FLOOR:
+ICT = 172.16.3.0/25, VLAN 50
+Servers = 172.16.3.128/28, VLAN 60
+
+Point-to-point networks between routers, FWs and L3-switches
+CORE-R1-MLSW1 = 172.16.3.144/30
+CORE-R1-MLSW2 = 172.16.3.148/30
+CORE-R2-MLSW1 = 172.16.3.152/30
+CORE-R2-MLSW2 = 172.16.3.156/30
+CORE-R1-FW1= 172.16.3.160/30
+CORE-R2-FW1= 172.16.3.164/30
+
+# REMOTE BRANCH OFFICE
+Marketing = 172.16.4.0/24, VLAN 70
+Voip= 172.16.5.0/24, VLAN 80
+CORE-SW3-FW2 = 172.16.3.168/30
+
+# PUBLIC IP NETWORKS
+
+ISP: 195.136.17.0/30, 195.136.17.4/30, 195.136.17.8/30
+Internet: 150.0.0.0/16
+google.com = 142.250.184.46
+Internet user = 105.10.10.10
+
+
+
+
+
+
+
+

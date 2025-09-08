@@ -46,7 +46,7 @@ Key goals of this project:
 ## Repository Contents
 This repository contains the following documentation:
 - topology.pdf – High-level network topology diagram
-- addressing-plan.md - IPv4 subnetting and addressing scheme
-- device-configs.md - More detailed description of device configurations
+- addressing-plan.txt - IPv4 subnetting and addressing scheme
+- device-configs.txt - More detailed description of device configurations
 - /images/ - Screenshots of Packet Tracer topology
 
