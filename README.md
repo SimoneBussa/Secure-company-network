@@ -12,8 +12,14 @@ Key goals of this project:
 - Demonstrate **routing, switching, and redundancy** best practices
 - Implement basic **security measures**
 
-![Network Topology](./images/overview-1.jpg)
-![Network Topology 2](./images/overview-2.jpg)
+<p align="center">
+  <img src="./images/overview-1.JPG" width="600"/>
+</p>
+
+<p align="center">
+  <img src="./images/overview-2.JPG" width="600"/>
+</p>
+
 ---
 ## Features
 - Multi-site company with a central three-floor headquarters and a remote branch office
